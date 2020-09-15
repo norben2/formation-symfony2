@@ -3,8 +3,8 @@
     <h1> {{ ad.title }}</h1>
 {% endblock %}
 {% block body %}
-    <div style ="background-image:url({{ ad.coverImage }})">
-            <div class="container">
+    <div class="adtitle" style ="background-image:url({{ ad.coverImage }})">
+         <div class="container">
                 <h1> {{ ad.title }} </h1> 
                 <p> {{ad.introduction}}</p>
                  <p class="h2"> 
@@ -13,7 +13,7 @@
                  </p>
                  <a href="#" class="btn btn-primary">Réserver !</a>
          </div> 
-    </div>    
+    </div>  
     <div class="container">
         <div class="row">
             <div class="col-md-8 mb-3 mr-3">
