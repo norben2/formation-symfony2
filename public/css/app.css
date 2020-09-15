@@ -13,3 +13,6 @@ div.adtitle h1, div.adtitle p{
     text-shadow: 3px 3px 3px rgba(0, 0, 0, 0.5);
 }
  
+div.carousel-caption{
+    text-shadow: 3px 3px 3px rgba(0, 0, 0, 0.5);
+}
