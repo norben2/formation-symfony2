@@ -5,6 +5,13 @@
 {% block body %}
     <div class="container">
             <h1>Creer une nouvelle annonce !</h1>
-            {{ form(form) }}
+            {{ form_start(form) }}
+
+
+            {{ form_widget(form) }}
+
+
+            {{ form_end(form) }}
+
     </div>
 {% endblock %}
