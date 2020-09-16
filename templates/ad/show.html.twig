@@ -28,12 +28,10 @@
 					<div class="carousel-inner">
 							{% for image in ad.images %}
 								<div class="carousel-item {% if loop.first %} active {% endif %}">
-									<img src="{{image.url}}" class="d-block w-100" 
-									alt="first slide">
-									
+									 <img src="{{image.url}}" class="d-block w-100" alt="first slide">
 									 <div class="carousel-caption d-none d-md-block">
        								 	<h5>{{ ad.title }}</h5>
-        									<p> {{ image.caption }} </p>
+        								<p> {{ image.caption }} </p>
      							 	 </div>
 								</div>
 							{% endfor %}

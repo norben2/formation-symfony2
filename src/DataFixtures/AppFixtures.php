@@ -14,14 +14,13 @@ class AppFixtures extends Fixture
     {
         $faker = Factory::create('FR-fr');
 
-
-        
-        $title = $faker -> sentence();
-        $coverImage  = $faker -> imageUrl(1000, 350);
-        $introduction = $faker -> paragraph(2);
-        $content =  '<p>'.join('<p></p>',$faker ->paragraphs(5)).'</p>';
-
         for($i =1; $i <= 30; $i++){
+            
+            $title = $faker -> sentence();
+            $coverImage  = $faker -> imageUrl();
+            $introduction = $faker -> paragraph(2);
+            $content =  '<p>'.join('<p></p>',$faker ->paragraphs(5)).'</p>';
+
             $ad = new Ad();
             $ad -> setTitle($title)
                 -> setPrice(\mt_rand(40, 200))
