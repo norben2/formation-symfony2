@@ -23,13 +23,14 @@ class AdType extends AbstractType
      * @param [string] $placeholder
      * @return array containing label and attribute
      */
-    private function getConfiguration($label, $placeholder)
+    private function getConfiguration($label, $placeholder, $disabled =false)
     {
        return [
             'label' => $label,
             'attr' => [
                 'placeholder' => $placeholder
-            ]
+            ],
+            'disabled' => $disabled
         ];
     }
     public function buildForm(FormBuilderInterface $builder, array $options)
@@ -50,11 +51,11 @@ class AdType extends AbstractType
             ->add('content', TextareaType::class, $this -> getConfiguration(
                'Desctiption globale','Dennez une description qui donnera envie de venir chez vous!' 
             ))
-            ->add('price',   MoneyType::class, $this -> getConfiguration(
+            ->add('price', MoneyType::class, $this -> getConfiguration(
                 'Prix par nuit', 'Donner un prix !'
             ))
             ->add('rooms', IntegerType::class, $this -> getConfiguration(
-                'Nobre de chambre', 'Entrez le nombre de chmbre que vous avez !'
+                'Nobre de chambre', 'Entrez le nombre de chambres que vous avez !'
             ))
             ->add('save', SubmitType::class, [
                 'label' => 'créer une nouvelle annonce ',
