@@ -9,14 +9,13 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\UrlType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\MoneyType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
-class AdType extends AbstractType
+class AdFormType extends AbstractType
 {
 
-    /**
+      /**
      * this function returns a label and placeholder for element text type
      *
      * @param [string] $label
@@ -33,10 +32,11 @@ class AdType extends AbstractType
             'disabled' => $disabled
         ];
     }
+    
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('title', TextType::class, $this -> getConfiguration(
+            ->add('title',TextType::class, $this -> getConfiguration(
                 'Titre', 'tapez un super titre pour votre annoce '
             ))
             ->add('slug', TextType::class, $this -> getConfiguration(
@@ -49,19 +49,14 @@ class AdType extends AbstractType
                 'Introduction', 'Donner une introduction pour votre annonce'
             ))
             ->add('content', TextareaType::class, $this -> getConfiguration(
-               'Desctiption globale','Dennez une description qui donnera envie de venir chez vous!' 
-            ))
-            ->add('price', MoneyType::class, $this -> getConfiguration(
-                'Prix par nuit', 'Donner un prix !'
-            ))
+                'Desctiption globale','Dennez une description qui donnera envie de venir chez vous!' 
+            ))       
             ->add('rooms', IntegerType::class, $this -> getConfiguration(
                 'Nobre de chambre', 'Entrez le nombre de chambres que vous avez !'
             ))
-            ->add('save', SubmitType::class, [
-                'label' => 'créer une nouvelle annonce ',
-                'attr'  => [ 'class' => 'btn btn-primary']
-            ])
-        ;
+            ->add('price', MoneyType::class, $this -> getConfiguration(
+                'Prix par nuit', 'Donner un prix !'
+            ));
     }
 
     public function configureOptions(OptionsResolver $resolver)
