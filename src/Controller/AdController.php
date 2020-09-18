@@ -35,19 +35,6 @@ class AdController extends Controller
      */
     public function create(Request $request, ObjectManager $manager){
         $ad = new Ad( );
-      
-        $image = new Image();
-
-        $image -> setUrl('http://palcehold.it/300x400')
-               -> setCaption('Titre 1');
-        
-        $ad -> addImage($image);
-
-        $image2 = new Image();
-        $image2 -> setUrl('http://palcehold.it/300x400')
-        -> setCaption('Titre 2');
- 
-       $ad -> addImage($image2);
         
         $form = $this -> createForm(AdFormType::class,$ad);
         $form -> handleRequest($request);   
