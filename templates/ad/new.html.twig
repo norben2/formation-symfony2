@@ -25,6 +25,8 @@
 
     {{ form_widget(form) }}
 
+    <input type="hidden" id= "widgets-counter" value="0">
+
     <div class="form-groupe">
         <button type="button" id="add-form-image" class= "btn btn-primary">
         Ajouter une image
@@ -67,7 +69,7 @@
      */
         $("#add-form-image").click(function(){
             // je récupére le numéri des futures champs que je veux créer
-            const index = $('#ad_form_images div.form-groupe').length;
+            const index = +$('#widgets-counter').val();
 
             // je récupére le prototype des entrées
             const tmpl = $('#ad_form_images').data('prototype').replace(/__name__/g, index);
@@ -76,6 +78,8 @@
             $('#ad_form_images').append(tmpl);
             {# console.log(tmpl); #}
 
+            $('#widgets-counter').val(index+1)
+            
             handleDeleteButtons();
         });
         // gérer l'appuis sur les boutons de suppréssion
