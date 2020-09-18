@@ -2,6 +2,7 @@
 
 {% block title %} Créer une nouvelle annonce ! {% endblock %}
 
+{% form_theme form _self %}
 {% block body %}
     <div class="container">
             <h1>Creer une nouvelle annonce !</h1>
@@ -16,3 +17,65 @@
 
     </div>
 {% endblock %}
+
+
+{% block _ad_form_images_widget %}
+
+    <p> Ici, vous pouvez ajouter vos propres images !</p>
+
+    {{ form_widget(form) }}
+
+    <div class="form-groupe">
+        <button type="button" id="add-form-image" class= "btn btn-primary">
+        Ajouter une image
+        </button>
+    </div>
+
+{%  endblock %}
+
+{% block _ad_form_images_entry_row %}
+    {{ form_widget(form)}}
+{% endblock %}
+
+{% block _ad_form_images_entry_widget %}
+
+    <div class="form-groupe">
+        <div class="row">
+            <div class="col">
+                {{ form_widget(form.url)}}
+            </div>
+            <div class="col">
+                {{ form_widget(form.caption)}}
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+
+    
+    <script>
+    /*on a accés au jquery, donc la je demande à JQuery de se brancher sur le bouton
+    qui a l'identifiant "ad_form_images", et quand on va cliquer dessus on va exécuter
+    une fonction particulière que je définie ici même.
+    la premi_re chose à faire dans cette fonction: récupérer le nombre di'mages
+    il me suffit de connaitre combien de div form-groupe à l'intérieur de la div
+    form_image qui sera stoqué dans index.
+    la deuxième chose : récupérer le code du prototype, qui sera stoqué dans 
+    tmpl.
+     */
+        $("#add-form-image").click(function(){
+            // je récupére le numéri des futures champs que je veux créer
+            const index = $('#ad_form_images div.form-groupe').length;
+
+            // je récupére le prototype des entrées
+            const tmpl = $('#ad_form_images').data('prototype').replace(/__name__/g, index);
+
+            //j'inject le code dans la div
+            $('#ad_form_images').append(tmpl);
+            console.log(tmpl);
+        });
+    </script>
+
+{% endblock %}
+

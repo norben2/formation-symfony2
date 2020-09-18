@@ -77,7 +77,9 @@ class AdFormType extends AbstractType
                 'images',
                  CollectionType::class,
                     [
-                        'entry_type' => ImageType::class
+                        'entry_type' => ImageType::class,
+                        'allow_add' => true,
+                        'allow_delete' => true
                     ]
             )
             
