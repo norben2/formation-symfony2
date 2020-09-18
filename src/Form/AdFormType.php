@@ -22,17 +22,17 @@ class AdFormType extends AbstractType
      *
      * @param [string] $label
      * @param [string] $placeholder
+     * @param [array] $options
      * @return array containing label and attribute
      */
-    private function getConfiguration($label, $placeholder, $disabled =false)
+    private function getConfiguration($label, $placeholder, $options = [])
     {
-       return [
+       return \array_merge([
             'label' => $label,
             'attr' => [
                 'placeholder' => $placeholder
-            ],
-            'disabled' => $disabled
-        ];
+            ]
+        ],$options);
     }
     
     public function buildForm(FormBuilderInterface $builder, array $options)
@@ -46,7 +46,9 @@ class AdFormType extends AbstractType
             ->add(
                 'slug',
                  TextType::class, 
-                 $this -> getConfiguration('Chaine URL','adress web qui sera visible en allant voir votre annonce')
+                 $this -> getConfiguration('Chaine URL','adress web qui sera visible en allant voir votre annonce(automatique)', [
+                     'required' => false
+                 ])
                  )
             ->add(
                 'coverImage',
