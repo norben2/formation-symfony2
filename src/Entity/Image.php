@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\ImageRepository;
+use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -19,11 +20,18 @@ class Image
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Url(
+     * message="url n'est pas valide"
+     * )
      */
     private $url;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\length(
+     * min=10,
+     * minMessage="le message doit faire au moins 10 charactères"
+     * )
      */
     private $caption;
 
