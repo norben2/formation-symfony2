@@ -7,12 +7,13 @@ use Doctrine\ORM\Mapping as ORM;
 use App\Repository\UserRepository;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
  * @ORM\HasLifecycleCallbacks()
  */
-class User
+class User implements UserInterface
 {
     /**
      * @ORM\Id
@@ -217,5 +218,27 @@ class User
             $this->slug = $slugify->slugify($this->firstName.' '.$this->lastName);
         }
     }
+
+    public function getRoles()
+         {
+             return ['ROLE_USER'];
+         }
+
+         public function getPassword(){
+             return $this->hash;
+         }
+
+         public function getSalt(){
+             /*pas la peine de l'implémenter, car l'algorithm bcrypt
+             le contient déjà*/
+         }
+
+         public function getUsername(){
+             return $this->email;
+         }
+
+         public function eraseCredentials(){
+             /* toto*/
+         }
 }
 
