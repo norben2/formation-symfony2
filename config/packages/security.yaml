@@ -10,14 +10,35 @@ security:
         users_in_database:
             #expliquer que ce provider va utiliser un class
             entity:
+                #définir le nom de la class
                 class: App\Entity\User
+                #définir la propriété qui va autentifier l'utilisateur
+                #quand un utiilisateur va vouloir s'authentifier
+                #symfony va chércher dans la base de données
+                #dans la table User
+                # si quelqu'un a cet email et qui a cet email là
+                #ensuite il va prendre cet utiilistuer et faire une comparaison de mot de pass
+
+                property: email
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
         main:
             anonymous: lazy
-            provider: users_in_memory
+            #préciser à symfony où aller chercher les utilsatuers
+            #donc on lui donne le provider
+            provider: users_in_database
+            #on va dire à symfony qu'on veut utiliser un formulaire de login
+            form_login:
+                #préciser le chemin pour aller à la page de connexion
+                login_path: account_login
+                #préciser le chemin sut lequel on doit vérifier les information d'authentification 
+                check_path: account_login
+
+            logout:
+                path: account_logout
+                target: account_login
 
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#firewalls-authentication
