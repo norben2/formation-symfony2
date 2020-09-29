@@ -8,13 +8,23 @@ use App\Repository\UserRepository;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
  * @ORM\HasLifecycleCallbacks()
+ * @UniqueEntity(
+ * fields={"email"},
+ * message="Cette address exist déjà, veuillez renseigner une autre addresse mail"
+ * )
  */
 class User implements UserInterface
 {
+    /**
+     * @Assert\EqualTo(propertyPath="hash", message="confirmation pas valide")
+     */
+    public $passwordConfirm;
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
@@ -24,21 +34,29 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(   message = "vous devez renseigner votre prénom" )
      */
     private $firstName;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(  message = "vous devez renseigner votre nom" )
      */
     private $lastName;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Email(
+     * message="Veillez renseigner un email valide"
+     * )
      */
     private $email;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Url(
+     * message="vous devez renseigner une url valide pour votre avatar"
+     * )
      */
     private $picture;
 
@@ -47,18 +65,28 @@ class User implements UserInterface
      */
     private $hash;
 
+
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Length(
+     *  min=10,
+     *  minMessage="vous devez renseigner plus de 10 charactères"
+     * )
      */
     private $introduction;
 
     /**
      * @ORM\Column(type="text")
+     * @Assert\Length(
+     * min=100,
+     * minMessage="votre description doit faire plus de 100 charactères"
+     * )
      */
     private $description;
 
     /**
      * @ORM\Column(type="string", length=255)
+     *
      */
     private $slug;
 
@@ -66,6 +94,8 @@ class User implements UserInterface
      * @ORM\OneToMany(targetEntity=Ad::class, mappedBy="author")
      */
     private $ads;
+
+  
 
     public function __construct()
     {
