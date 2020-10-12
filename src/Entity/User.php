@@ -44,6 +44,9 @@ class User implements UserInterface
      */
     private $lastName;
 
+    public function getFullName(){
+        return "{$this->firstName} {$this->lastName}";
+    }
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\Email(
