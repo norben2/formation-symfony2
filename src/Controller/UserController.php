@@ -12,7 +12,7 @@ class UserController extends AbstractController
      * @Route("/user/{slug}", name="user_show")
      * 
      * on va utiliser le param converter de symfony pour avoir l'utilisateur 
-     * on argument de la fonction
+     * on argument de la fonction 
      */
     public function index(User $user)
     {
