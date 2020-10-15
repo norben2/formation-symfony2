@@ -46,7 +46,7 @@ class AdController extends Controller
                 $image -> setAd($ad);
                 $manager -> persist($image);
             }
-
+            $ad->setAuthor($this->getUser());
 
             $manager -> persist($ad);
             $manager -> flush();
