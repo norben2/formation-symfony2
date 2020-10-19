@@ -71,10 +71,10 @@ class AppFixtures extends Fixture
         // Gérer les annonces
         for($i =1; $i <= 30; $i++){
             
-            $title = $faker -> sentence();
-            $coverImage  = $faker -> imageUrl();
-            $introduction = $faker -> paragraph(2);
-            $content =  '<p>'.join('<p></p>',$faker ->paragraphs(5)).'</p>';
+            $title = $faker->sentence();
+            $coverImage  = $faker->imageUrl();
+            $introduction = $faker->paragraph(2);
+            $content =  '<p>'.join('<p></p>',$faker->paragraphs(5)).'</p>';
 
             $user = $users[\mt_rand(0, count($users)-1)];
 
@@ -89,8 +89,8 @@ class AppFixtures extends Fixture
 
                 for($j =1; $j <= \mt_rand(2,5); $j++){
                     $image = new Image();
-                    $image -> setUrl($faker -> imageUrl())
-                           -> setCaption($faker -> sentence())
+                    $image -> setUrl($faker->imageUrl())
+                           -> setCaption($faker->sentence())
                            -> setAd($ad);
                     
                     $manager->persist($image);
