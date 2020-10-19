@@ -120,6 +120,7 @@ class AdController extends Controller
             "ad" => $ad
         ]);
     }
+    
     /**
      * Allows to delate an ad
      * @Route("/ads/{slug}/delete", name = "ads_delete")
