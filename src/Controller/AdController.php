@@ -120,4 +120,25 @@ class AdController extends Controller
             "ad" => $ad
         ]);
     }
+    /**
+     * Allows to delate an ad
+     * @Route("/ads/{slug}/delete", name = "ads_delete")
+     * @Security("is_granted('ROLE_USER') and user === ad.getAuthor()",
+     * message= "vous n'avez pas le droit d'accéder à cette ressource")
+     * @param Ad $ad
+     * @param ObjectManager $manager
+     * @return Response
+     */
+    public function delete(Ad $ad, ObjectManager $manager){
+        $manager->remove($ad);
+        $manager->flush();
+
+        $this->addflash(
+            'success',
+            "L'annonce <strong> {$ad->getTitle()}! </strong> a bien été supprimée "
+        );
+
+        return $this->redirectTORoute("ads_index");
+
+    }
 }
