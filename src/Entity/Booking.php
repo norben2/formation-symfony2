@@ -4,9 +4,11 @@ namespace App\Entity;
 
 use App\Repository\BookingRepository;
 use Doctrine\ORM\Mapping as ORM;
+use DateTime;
 
 /**
  * @ORM\Entity(repositoryClass=BookingRepository::class)
+ * @ORM\HasLifecycleCallbacks()
  */
 class Booking
 {
@@ -53,6 +55,31 @@ class Booking
      * @ORM\Column(type="text", nullable=true)
      */
     private $comment;
+
+    /**
+     * permet d'initialiser le prix et la date de création
+     *
+     * @return void
+     * 
+     * @ORM\PrePersist
+     * @ORM\PreUpdate
+     */
+    public function prePersiste(){
+        if(empty($this->createdAt)){
+            $this->createdAt = new DateTime();
+        }
+
+        if(empty($this->amount)){
+            // prix de l'annonce * nobre de jours
+            $price = $this->ad->getPrice();
+            $days  = $this->getDuration();
+            $this->amount = $days * $price;
+        }
+    }
+    public function getDuration(){
+        $diff =  $this->endDate->diff($this->startDate);
+        return $diff->days;
+    }
 
     public function getId(): ?int
     {

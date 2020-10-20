@@ -60,7 +60,7 @@ class AdController extends Controller
                 "L\'annonce <strong> {$ad -> getTitle()} </strong> a enregitré !"
             );
 
-            return $this -> redirectTORoute('ads_show', [
+            return $this -> redirectToRoute('ads_show', [
                 'slug' => $ad -> getSlug()
             ]);
         }
@@ -96,7 +96,7 @@ class AdController extends Controller
                 "L\'annonce <strong> {$ad -> getTitle()} </strong> a été modifié avec succés !"
             );
 
-            return $this -> redirectTORoute('ads_show', [
+            return $this -> redirectToRoute('ads_show', [
                 'slug' => $ad -> getSlug()
             ]);
         }
@@ -139,7 +139,7 @@ class AdController extends Controller
             "L'annonce <strong> {$ad->getTitle()}! </strong> a bien été supprimée "
         );
 
-        return $this->redirectTORoute("ads_index");
+        return $this->redirectToRoute("ads_index");
 
     }
 }
