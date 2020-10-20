@@ -7,6 +7,7 @@ use \App\Entity\Ad;
 use App\Entity\Role;
 use App\Entity\User;
 use App\Entity\Image;
+use App\Entity\Booking;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
@@ -87,6 +88,7 @@ class AppFixtures extends Fixture
                 -> setRooms(\mt_rand(1,5))
                 -> setAuthor($user);
 
+                //créer les différentes images
                 for($j =1; $j <= \mt_rand(2,5); $j++){
                     $image = new Image();
                     $image -> setUrl($faker->imageUrl())
@@ -97,6 +99,33 @@ class AppFixtures extends Fixture
 
                 }
             
+                // gestion de réservation 
+                for($j = 1; $j <= \mt_rand(0,10); $j++){
+                    $booking = new Booking();
+                    $createdAt = $faker->dateTimeBetween('-6 months');
+                    $startDate = $faker->dateTimeBetween('-3 months');
+                    //create the duration of the booking
+                    $duration = \mt_rand(3, 10);
+                    // clone the sratDate so it will not be modified then add the duration to the startDate
+                    $endDate = (clone $startDate)->modify("+ $duration days");
+                    //calculate the amount
+                    $amount = $ad->getPrice() * $duration;
+                    //find a booker
+                    $booker = $users[\mt_rand(0, count($users)-1)];
+                    //créer un commentaire alératoire avec faker
+                    $comment = $faker->paragraph();
+
+                    $booking->setBooker($booker)
+                            ->setAd($ad)
+                            ->setStartDate($startDate)
+                            ->setEndDate($endDate)
+                            ->setCreatedAt($createdAt)
+                            ->setAmount($amount)
+                            ->setComment($comment);
+                    $manager->persist($booking);
+                }
+
+
              // $product = new Product();
              // $manager->persist($product);
              $manager->persist($ad);
