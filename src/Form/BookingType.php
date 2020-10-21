@@ -6,6 +6,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
 class BookingType extends ApplicationType
@@ -15,19 +16,17 @@ class BookingType extends ApplicationType
         $builder
             ->add(
                 'startDate', 
-                DateType::class,
+                TextType::class,
                 $this->getConfiguration(
                     "date d'arrivée",
-                    "La date de votre arrivée",
-                    ["widget" => "single_text"]
+                    "La date de votre arrivée"
                 ))
             ->add(
                 'endDate',
-                DateType::class,
+                TextType::class,
                 $this->getConfiguration(
                     'date de départ',
-                    'la date de votre départ',
-                    ["widget" => "single_text"]
+                    'la date de votre départ'
                     
                 ))
             ->add('comment',

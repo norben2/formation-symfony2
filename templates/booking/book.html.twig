@@ -2,6 +2,11 @@
 
 {% block title %}Reserver l'annonce {{ ad.title}}!{% endblock %}
 
+{% block stylesheets %}
+    <link rel="stylesheet" href="/css/bootstrap-datepicker.min.css"/>
+{% endblock %}
+
+
 {% block body %}
     <div class="container">
         <h1>Reservez pour l'annonce ! </h1>
@@ -34,4 +39,22 @@
         {{ form_end(form) }}
 
     </div>
+{% endblock %}
+
+{% block javascripts %}
+ <script src="/js/bootstrap-datepicker.min.js"></script>
+
+ <script>
+    $(document).ready(function(){
+        $('#booking_startDate, #booking_endDate').datepicker({
+            format: 'dd/mm/yyyy',
+            datesDisabled: [
+            {% for day in ad.getNotAvailableDays %}
+                "{{ day.format('d/m/Y') }}",
+            {% endfor %}
+            ],
+             startDate: new Date()
+        });
+    })
+ </script>
 {% endblock %}
