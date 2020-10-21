@@ -34,7 +34,10 @@ class BookingType extends ApplicationType
             TextareaType::class,
             $this->getConfiguration(
                 false,
-                'Ecrivez un commentaire si vous voulez adresser un message particulier au booker'
+                'Ecrivez un commentaire si vous voulez adresser un message particulier au booker',[
+                    'required' => false
+                ]
+                
             ))
         ;
     }
