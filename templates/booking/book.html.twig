@@ -25,15 +25,14 @@
                     {{ form_row(form.endDate)}}
                 </div>
             </div>
-        </div>
-        <h4>Montant de du séjout : <span id="amount">...</span>&euro;</h4>
+            <h4>Montant de du séjout : <span id="amount">...</span>&euro;</h4>
         <span id="days">0</span> nuit(s) à {{ ad.price }}/nuit
 
-        <h2>Vous avez un commentaire ?</h2>
+        <h4 class = "mt-3">Vous avez un commentaire ?</h4>
         {{ form_row(form.comment) }}
         <h2>Vous avez terminé !</h2>
         <p>Vacances de rêve ? Hébergement pour le boulot ? Peu import, on est là pour vous !</p>
-
+        </div>
         <button type="submit" class="btn btn-success"> Reserver !</button>
 
         {{ form_end(form) }}
@@ -55,6 +54,31 @@
             ],
              startDate: new Date()
         });
+         $('#booking_startDate, #booking_endDate').on('change', calculateAmount);
     })
+
+    function calculateAmount(){
+        //récupérer les dates
+        //les dates récupérées ici sont au fotmat string mais format francais,
+        // il faut les transformé au format englais
+        // on a un format 18/05/2020
+        //je cherche / un nombre ou plus puis je les capture avec des ()
+        // (\d)+(\/d)+(\/d{4})
+
+        // 2020-05-18
+        // les / en javascript pour faire une regex
+        const endDate = new Date($('#booking_endDate').val().replace(/(\d+)\/(\d+)\/(\d{4})/, '$3-$2-$1'));
+        const startDate = new Date($('#booking_startDate').val().replace(/(\d+)\/(\d+)\/(\d{4})/, '$3-$2-$1'));
+        if(endDate && startDate && startDate < endDate ){
+            // récupérer l'interval des timeStamp en ms
+            const dayTime = 24 * 60 * 60 * 1000;
+            const interval = endDate.getTime() - startDate.getTime();
+            const days = interval / dayTime;
+            const amount = days * {{ ad.price }};
+            
+            $('#days').text(days);
+            $('#amount').text(amount.toLocaleString('fr-FR'))
+        }
+    }
  </script>
 {% endblock %}
