@@ -8,6 +8,7 @@ use App\Entity\Role;
 use App\Entity\User;
 use App\Entity\Image;
 use App\Entity\Booking;
+use App\Entity\Comment;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
@@ -92,7 +93,8 @@ class AppFixtures extends Fixture
                 //créer les différentes images
                 for($j =1; $j <= \mt_rand(2,5); $j++){
                     $image = new Image();
-                    $image -> setUrl($faker->imageUrl())
+                    // $image -> setUrl($faker->imageUrl())
+                    $image->setUrl("http://placeimg.com/640/360/".mt_rand(1, 1000))
                            -> setCaption($faker->sentence())
                            -> setAd($ad);
                     
@@ -124,6 +126,16 @@ class AppFixtures extends Fixture
                             ->setAmount($amount)
                             ->setComment($comment);
                     $manager->persist($booking);
+
+                    //gérer les commentaires, créer un commentaire au hazar pour une réservation au hazard
+                    if(\mt_rand(0,1)){
+                        $comment = new Comment();
+                        $comment->setContent($faker->paragraph())
+                                ->setRating(\mt_rand(0,5))
+                                ->setAuthor($booker)
+                                ->setAd($ad);
+                        $manager->persist($comment);
+                    }
                 }
 
 
