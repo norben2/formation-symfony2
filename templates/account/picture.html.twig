@@ -1,0 +1,12 @@
+{% extends 'base.html.twig'%}
+
+{% block title %} image de profile {% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="row">
+             <img src="{{ app.user.picture }}" alt="avatar de {{app.user.fullName}} style="width:500px;height:600px;">  
+        </div>
+    </div>
+
+ {% endblock %}

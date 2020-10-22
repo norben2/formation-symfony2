@@ -31,7 +31,7 @@ class AppFixtures extends Fixture
         $adminUser->setFirstName('Benkerrou')
                   ->setLastName('Noreddine')
                   ->setEmail('benkerrou.noreddine@gmail.com')
-                  ->setPicture('http://placehold.it/64x64')
+                  ->setPicture('/pics/adminPicture.jpg')
                   ->setHash($this->encoder->encodePassword($adminUser, 'password'))
                   ->setIntroduction($faker->sentence())
                   ->setDescription('<p>'.join('<p></p>',$faker ->paragraphs(3)).'</p>')   
@@ -73,7 +73,8 @@ class AppFixtures extends Fixture
         for($i =1; $i <= 30; $i++){
             
             $title = $faker->sentence();
-            $coverImage  = $faker->imageUrl();
+            // $coverImage  = $faker->imageUrl();
+            $coverImage = "http://placeimg.com/640/360/".mt_rand(1, 1000);
             $introduction = $faker->paragraph(2);
             $content =  '<p>'.join('<p></p>',$faker->paragraphs(5)).'</p>';
 

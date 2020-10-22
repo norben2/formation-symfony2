@@ -6,7 +6,7 @@
     <div class="container">
         <div class="row align-items-center">
             <div class="col-3 text-center">
-                <img src="{{ user.picture }}" class="avatar mb-3" alt=" image de {{ user.fullName }}">
+                <a href="{{path('acount_picture')}}"><img src="{{ user.picture }}" class="avatar mb-3" alt=" image de {{ user.fullName }}"></a>
                 <br>
                 <span class = "badge badge-primary">{{ user.ads | length }} annonces</span>
             </div>
