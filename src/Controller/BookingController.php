@@ -4,7 +4,9 @@ namespace App\Controller;
 
 use App\Entity\Ad;
 use App\Entity\Booking;
+use App\Entity\Comment;
 use App\Form\BookingType;
+use App\Form\CommentType;
 use Doctrine\Persistence\ObjectManager;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -58,11 +60,37 @@ class BookingController extends AbstractController
      * permet d'afficher la page d'une réservation
      * @Route("/booking/{id}", name = "booking_show")
      * @param Booking $booking
+     * @param Request $request
+     * @param PbjectManager $manager
      * @return Response
      */
-    public function show(Booking $booking){
+    public function show(Booking $booking, Request $request, ObjectManager $manager){
+        $comment = new Comment();
+        // créer un formulaire de type CommentType, qu'on va lier avec l'entité $comment
+        $form = $this->createForm(CommentType::class, $comment);
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()){
+            $user = $this->getUser();
+            $ad = $booking->getAd();
+
+            $comment->setAuthor($user)
+                    ->setAd($ad);
+
+            $manager->persist($comment);
+            $manager->flush();
+
+            $this->addFlash(
+                'success',
+                'Votre commentaire a bien été enregistré'
+            );
+        }
+
+        
+
         return $this->render('booking/show.html.twig',[
-            'booking' => $booking
+            'booking' => $booking,
+            'form' => $form->createView()
         ]);
     }
 }

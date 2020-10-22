@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Entity\User;
 use Cocur\Slugify\Slugify;
 use App\Repository\AdRepository;
 use Doctrine\ORM\Mapping as ORM;
@@ -107,6 +108,20 @@ class Ad
         $this->bookings = new ArrayCollection();
         $this->comments = new ArrayCollection();
     }
+    /**
+     * permet de retourner le commentaire d'un auteur pour une annonce
+     *
+     * @param User $user
+     * @return Comment | null
+     */
+    public function getCommentFromAuthor(User $user){
+        foreach($this->comments as $comment){
+            if($comment->getAuthor() == $user){
+                return $comment;
+            }
+        }
+        return null;
+    }
 
     /**
      * permet de calculer la moyenne des notations des voyageurs 
@@ -121,7 +136,7 @@ class Ad
             $sum = array_reduce($this->comments->toArray(),function ($total, $comment){
                 return $total + $comment->getRating();
             }, 0);
-            $avg = $sum / $size;
+            $avg = intval($sum / $size);
             return $avg;
         }
         return 0; 

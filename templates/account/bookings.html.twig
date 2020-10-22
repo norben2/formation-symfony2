@@ -14,13 +14,23 @@
                     <div class="col-4">
                     {# img-fluid pour que l'image prenne toute la place #}
                         <img src="{{ ad.coverimage }}" class = "img-fluid" alt="{{ ad.title }}">
+
+                        <div class="mt-3">
+                            {% set comment = ad.getCommentFromAuthor(app.user) %}
+                            {% if comment is not null %}
+                                <strong>Note: </strong> {% include 'shared/rating.html.twig' with {'rating': comment.rating } %}
+                            {% else %}
+                                <p> Vous n'avez pas encore noté cette annonce !</p>
+                                <a href="{{ path('booking_show', { 'id': booking.id }) }}#comment">Je donne mon avis !</a>
+                            {% endif %}
+                        </div>
                     </div>
                     <div class="col-8">
                         <h4>{{ ad.title }}</h4>
                         <p>
                             Réservation <strong>n° {{ booking.id }}</strong></br>
                             Du {{ booking.startDate | date('d/m/Y') }} à {{ booking.endDate | date('d/m/Y')}} <br>
-                            Prix :  {{ booking.amount }} &euro;
+                            Prix :  {{ booking.amount }} &euro;  
                         </p>
                         <a href="{{path('booking_show', { 'id':booking.id})}}" class="btn btn-info">Voir la réservation</a>
                     </div>

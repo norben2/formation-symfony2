@@ -2,9 +2,13 @@
     <div class="col-md-4">
         <div class="card bg-light mb-3">
 		    <div class="card-header text-center">
-			    {{ad.rooms}} chambres, <strong>{{ad.price}} euros/nuit</strong><br>
-			    <small> Pas encore noté</small>
-		   	</div>
+			    {{ad.rooms}} chambres, <strong>{{ad.price}} &euro;/nuit</strong><br>
+				{% if ad.comments | length > 0 %}
+			    	<small>{% include 'shared/rating.html.twig' with {'rating': ad.getAverageRatings } %} </small>
+				{% else %}
+					<small style = "color : purple;">Pas encore notée ! </small>
+				{% endif %}
+			   </div>
 			    <a href="{{ url }}">
 			    <img src="{{ ad.coverImage }}" alt="Image de l'appartement" 
 			    style="height: 200px; width: 100%; display: block">

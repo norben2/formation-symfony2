@@ -70,17 +70,18 @@
                             
                             </div>
                         </h4>
-                    
                     </div>
                     {% for comment in ad.comments %}
                     {# bg-light pour un fond grisé, rouded pour un radius et py padding selon y #}
                         <div class="bg-light rounded mb-3 py-3 px-3">
-                            <strong>{{comment.author.fullName }} a dit :</strong>
+                            <strong>{{comment.author.lastName }} a dit :</strong> 
+                            <br>  
                             {# blocquote pour une citation #}
                             <blocquote>
                                 {{ comment.content }}
                             </blocquote>
-                            <strong> Note donnée par {{ comment.author.fullName}} : </strong> 
+                            <br>
+                            <strong> Note : </strong> 
                             
                             {% include 'shared/rating.html.twig' with  {'rating': comment.rating}  %}
                         </div>
