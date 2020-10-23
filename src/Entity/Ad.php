@@ -136,7 +136,7 @@ class Ad
             $sum = array_reduce($this->comments->toArray(),function ($total, $comment){
                 return $total + $comment->getRating();
             }, 0);
-            $avg = intval($sum / $size);
+            $avg = $sum / $size;
             return $avg;
         }
         return 0; 
