@@ -13,7 +13,7 @@
                     <th>Titre</th>
                     <th>Auteur</th>
                     <th class = "text-center">Réservation</th>
-                    <th class = "text-center">Nore</th>
+                    <th class = "text-center">Note</th>
                     <th>Actoin</th>
                 </tr>            
             </thead>
@@ -29,15 +29,12 @@
                     <td class ="text-center">
                         <span class="badge badge-primary rounded">{{ad.bookings | length}}</span>
                     </td>
-                    <td class ="text-center">
-                        <span class="badge badge-primary rounded">{{ad.bookings | length}}</span>
-                    </td>
                     <td>
                         <span class="badge badge-primary rounded">{{ad.getAverageRatings | number_format(1,',',' ')}}</span>
                     </td>
                     <td>
-                        <a href="#" class="btn btn-primary"><i class="fas fa-edit"></i></a>
-                        <a href="#" class="btn btn-danger"><i class="fas fa-trash"></i></a>
+                        <a href="{{path("admin_ads_edit", {"id": ad.id})}}" class="btn btn-primary"><i class="fas fa-edit"></i></a>
+                        <a href="{{path("admin_ads_delete", {'id': ad.id})}}" class="btn btn-danger"><i class="fas fa-trash"></i></a>
 
                     </td>
                 </tr>

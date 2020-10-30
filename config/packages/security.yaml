@@ -18,12 +18,32 @@ security:
                 #dans la table User
                 # si quelqu'un a cet email et qui a cet email là
                 #ensuite il va prendre cet utiilistuer et faire une comparaison de mot de pass
-
                 property: email
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
+        
+        admin:
+            #tous ce qui commence par /admin fait partie du firewall admin
+            pattern: ^/admin
+            # on peut arriver dessus de manière anonyme (/admin/login)
+            anonymous: true
+            # si j'ai des connexions sur ce firewall, je cherche les utilisateur dans la BD
+            provider: users_in_database
+
+            form_login:
+            #spécifier le form_login "donner le nom de la route"
+                login_path: admin_account_login
+            #le path pour vérifier si les informations données dans le formulaire du login sont vrai
+                check_path: admin_account_login
+            
+            #spécifier le formulaire de logout
+            logout:
+                path: admin_account_logout
+                # spécifier la redirection avec target
+                target: homepage
+
         main:
             anonymous: lazy
             #préciser à symfony où aller chercher les utilsatuers
@@ -49,5 +69,6 @@ security:
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
-        # - { path: ^/admin, roles: ROLE_ADMIN }
+        - { path: ^/admin/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/admin, roles: ROLE_ADMIN }
         # - { path: ^/profile, roles: ROLE_USER }

@@ -25,7 +25,7 @@ class AppFixtures extends Fixture
         $faker = Factory::create('FR-fr');
         
         $adminRole = new Role();
-        $adminRole->setTitle('ADMIN_ROLE');
+        $adminRole->setTitle('ROLE_ADMIN');
         $manager->persist($adminRole);
 
         $adminUser = new User();
