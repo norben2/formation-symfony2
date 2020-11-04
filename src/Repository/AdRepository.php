@@ -47,4 +47,16 @@ class AdRepository extends ServiceEntityRepository
         ;
     }
     */
+
+    public function findBestAds($limit){    
+        return $this->createQueryBuilder('a')
+                    ->select('a as ad, AVG(c.rating) as avgRating')
+                    ->join('a.comments', 'c')
+                    ->groupBy('a')
+                    ->orderBy('avgRating', 'DESC')
+                    ->setMaxResults($limit)
+                    ->getQuery()
+                    ->getResult();
+
+    }
 }
