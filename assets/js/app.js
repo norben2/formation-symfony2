@@ -1,5 +1,10 @@
+// var $ = require('jquery');
+
+// global.$ = global.jQuery = $;
+
+// require('bootstrap');
+
 var $ = require('jquery');
-
-global.$ = global.jQuery = $;
-
-require('bootstrap');
+require('popper.js')
+require('./bootstrap.min.js');
+require('./ads');
