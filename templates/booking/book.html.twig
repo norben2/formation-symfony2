@@ -3,7 +3,9 @@
 {% block title %}Reserver l'annonce {{ ad.title}}!{% endblock %}
 
 {% block stylesheets %}
-    <link rel="stylesheet" href="/css/bootstrap-datepicker.min.css"/>
+    {# <link rel="stylesheet" href="/css/bootstrap-datepicker.min.css"/> #}
+    {# {{ encore_entry_link_tags('css/app') }} #}
+    {# {{asset('build/js/css/app.css')}} #}
 {% endblock %}
 
 
@@ -41,7 +43,9 @@
 {% endblock %}
 
 {% block javascripts %}
- <script src="/js/bootstrap-datepicker.min.js"></script>
+ {# <script src="/js/bootstrap-datepicker.min.js"></script> #}
+    {# {{ asset('build/js/datepicker.js') }} #}
+    {# {{ encore_entry_link_tags('js/datepicker') }} #}
 
  <script>
     $(document).ready(function(){

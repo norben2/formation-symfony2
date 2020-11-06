@@ -1,10 +1,6 @@
-// var $ = require('jquery');
+const $ = require('jquery');
+// require('./ads.js');
+require('./bootstrap-datepicker.min');
+global.$ = global.jQuery = $;
+require('bootstrap');
 
-// global.$ = global.jQuery = $;
-
-// require('bootstrap');
-
-var $ = require('jquery');
-require('popper.js')
-require('./bootstrap.min.js');
-require('./ads');
